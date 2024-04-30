@@ -3,8 +3,13 @@ import { Button } from "../../components/Button";
 import { useState } from "react";
 
 export function LoginPage({ onLogin }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  //const [email, setEmail] = useState("");
+  //const [password, setPassword] = useState("");
+  const [formValues, setFormValues] = useState({
+    email: "",
+    password: "",
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -14,6 +19,15 @@ export function LoginPage({ onLogin }) {
     });
     onLogin();
   };
+
+  const handleChange = (event) => {
+    setFormValues((currentFormValues) => ({
+      ...currentFormValues,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const { email, password } = formValues;
   const buttonDisabled = !email || !password;
   return (
     <div>
@@ -23,13 +37,13 @@ export function LoginPage({ onLogin }) {
           type="text"
           name="email"
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={handleChange}
         ></input>
         <input
           type="password"
           name="password"
           value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          onChange={handleChange}
         ></input>
         <Button type="submit" disabled={buttonDisabled}>
           Login
