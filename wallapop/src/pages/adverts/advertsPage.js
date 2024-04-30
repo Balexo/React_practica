@@ -2,8 +2,6 @@
 //import { getAdverts } from "../service";
 import styles from "./advertsPage.module.css";
 
-console.log(styles);
-
 const adds = [
   {
     id: "60ca495b-ece0-49da-8a34-34cebc053938",
