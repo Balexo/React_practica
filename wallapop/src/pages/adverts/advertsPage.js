@@ -5,17 +5,12 @@ import { logout } from "../service";
 import { Button } from "../../components/Button";
 import Layout from "../../components/Layout";
 
-function AdvertsPage({ onLogout }) {
+function AdvertsPage({ onLogout, isLogged }) {
   const [adverts, setAdverts] = useState([]);
 
   useEffect(() => {
     getAdverts().then((adverts) => setAdverts(adverts));
   }, []);
-
-  const handleLogout = async () => {
-    await logout();
-    onLogout();
-  };
 
   function tagsAdd(tagsList) {
     const tags = tagsList.map((tag) => {
@@ -24,10 +19,9 @@ function AdvertsPage({ onLogout }) {
     return tags.join(" ");
   }
   return (
-    <Layout>
+    <Layout onLogout={onLogout} isLogged={isLogged}>
       <div>
         <ul className={styles.advertsList}>
-          <Button onClick={handleLogout}>Logout</Button>
           {adverts.map((add) => (
             <li key={add.id}>
               <ul>

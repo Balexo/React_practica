@@ -13,11 +13,8 @@ export function LoginPage({ onLogin }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (checkValue) {
-      const response = await login(formValues);
-    } else {
-      const response = await loginWithoutPersistance(formValues);
-    }
+    const response = await login(formValues, checkValue);
+
     onLogin();
   };
 
