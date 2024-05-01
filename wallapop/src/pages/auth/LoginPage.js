@@ -10,13 +10,10 @@ export function LoginPage({ onLogin }) {
     password: "",
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = login({
-      email,
-      password,
-    });
+    const response = await login(formValues);
     onLogin();
   };
 

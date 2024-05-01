@@ -5,8 +5,9 @@ import reportWebVitals from "./reportWebVitals";
 import storage from "./utils/storage";
 import { setAuthorizationHeader } from "./api/client";
 
-async function initializeApp() {
-  const accessToken = await storage.get("auth");
+function initializeApp() {
+  debugger;
+  const accessToken = storage.get("auth");
   debugger;
   if (accessToken) {
     setAuthorizationHeader(accessToken);
