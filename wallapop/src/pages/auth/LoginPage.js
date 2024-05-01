@@ -1,8 +1,10 @@
-import { login, loginWithoutPersistance } from "../service";
+import { login } from "../service";
 import { Button } from "../../components/Button";
 import { useState } from "react";
+import { useAuth } from "./context";
 
-export function LoginPage({ onLogin }) {
+export function LoginPage() {
+  const { onLogin } = useAuth();
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",

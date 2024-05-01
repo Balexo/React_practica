@@ -1,8 +1,10 @@
 import { ReactComponent as Icon } from "../assets/svgImage.svg";
 import { Button } from "./Button";
 import { logout } from "../pages/service";
+import { useAuth } from "../pages/auth/context";
 
-export default function Header({ isLogged, onLogout }) {
+export default function Header() {
+  const { isLogged, onLogout } = useAuth();
   const handleLogout = async () => {
     await logout();
     onLogout();

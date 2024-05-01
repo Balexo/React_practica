@@ -5,7 +5,7 @@ import { logout } from "../service";
 import { Button } from "../../components/Button";
 import Layout from "../../components/Layout";
 
-function AdvertsPage({ onLogout, isLogged }) {
+function AdvertsPage() {
   const [adverts, setAdverts] = useState([]);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function AdvertsPage({ onLogout, isLogged }) {
     return tags.join(" ");
   }
   return (
-    <Layout onLogout={onLogout} isLogged={isLogged}>
+    <Layout>
       <div>
         <ul className={styles.advertsList}>
           {adverts.map((add) => (

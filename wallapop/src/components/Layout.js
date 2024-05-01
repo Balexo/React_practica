@@ -2,10 +2,10 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { children } from "react";
 
-export default function Layout({ children, onLogout, isLogged }) {
+export default function Layout({ children }) {
   return (
     <div>
-      <Header onLogout={onLogout} isLogged={isLogged} />
+      <Header />
       <main>{children}</main>
       <Footer />
     </div>
