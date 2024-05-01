@@ -5,8 +5,7 @@ const storage = {
     if (!value) {
       return null;
     }
-
-    return JSON.stringify(value);
+    return JSON.parse(value);
   },
 
   set(key, value) {

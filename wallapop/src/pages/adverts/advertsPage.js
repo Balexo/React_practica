@@ -1,6 +1,6 @@
-//import { useState } from "react";
-//import { getAdverts } from "../service";
 import styles from "./advertsPage.module.css";
+import { getAdverts } from "../service";
+import { useState, useEffect } from "react";
 
 const adds = [
   {
@@ -23,9 +23,11 @@ const adds = [
   },
 ];
 function AdvertsPage() {
-  //const [adverts, setAdverts] = useState([]);
+  const [adverts, setAdvertsPanel] = useState([]);
 
-  //getAdverts().then((adverts) => console.log(adverts));
+  useEffect(() => {
+    getAdverts().then((adverts) => setAdvertsPanel(adverts));
+  }, []);
 
   function tagsAdd(tagsList) {
     const tags = tagsList.map((tag) => {
@@ -36,14 +38,14 @@ function AdvertsPage() {
   return (
     <div>
       <ul className={styles.advertsList}>
-        {adds.map((adds) => (
-          <li key={adds.id}>
+        {adverts.map((add) => (
+          <li key={add.id}>
             <ul>
-              <li>{adds.name}</li>
-              <li>Estado:{adds.sale ? "En venta" : "compra"}</li>
-              <li>Precio: {adds.price}</li>
-              <li>Categoria:{tagsAdd(adds.tags)} </li>
-              <li>Photo:{adds.photo}</li>
+              <li>{add.name}</li>
+              <li>Estado:{add.sale ? "En venta" : "compra"}</li>
+              <li>Precio: {add.price}</li>
+              <li>Categoria:{tagsAdd(add.tags)} </li>
+              <li>Photo:{add.photo}</li>
             </ul>
           </li>
         ))}
