@@ -6,13 +6,12 @@ import storage from "./utils/storage";
 import { setAuthorizationHeader } from "./api/client";
 
 function initializeApp() {
-  debugger;
   const accessToken = storage.get("auth");
-  debugger;
+
   if (accessToken) {
     setAuthorizationHeader(accessToken);
   }
-  debugger;
+
   const root = ReactDOM.createRoot(document.getElementById("root"));
   root.render(
     <React.StrictMode>

@@ -8,7 +8,6 @@ function App({ isDefaultLogged }) {
 
   const handleLogin = () => setIsLogged(true);
   const handleLogout = () => setIsLogged(false);
-  debugger;
   return (
     <section>
       {isLogged ? (

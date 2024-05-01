@@ -3,6 +3,7 @@ import { getAdverts } from "../service";
 import { useState, useEffect } from "react";
 import { logout } from "../service";
 import { Button } from "../../components/Button";
+import Layout from "../../components/Layout";
 
 function AdvertsPage({ onLogout }) {
   const [adverts, setAdverts] = useState([]);
@@ -23,22 +24,24 @@ function AdvertsPage({ onLogout }) {
     return tags.join(" ");
   }
   return (
-    <div>
-      <ul className={styles.advertsList}>
-        <Button onClick={handleLogout}>Logout</Button>
-        {adverts.map((add) => (
-          <li key={add.id}>
-            <ul>
-              <li>{add.name}</li>
-              <li>Estado:{add.sale ? "En venta" : "compra"}</li>
-              <li>Precio: {add.price}</li>
-              <li>Categoria:{tagsAdd(add.tags)} </li>
-              <li>Photo:{add.photo}</li>
-            </ul>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Layout>
+      <div>
+        <ul className={styles.advertsList}>
+          <Button onClick={handleLogout}>Logout</Button>
+          {adverts.map((add) => (
+            <li key={add.id}>
+              <ul>
+                <li>{add.name}</li>
+                <li>Estado:{add.sale ? "En venta" : "compra"}</li>
+                <li>Precio: {add.price}</li>
+                <li>Categoria:{tagsAdd(add.tags)} </li>
+                <li>Photo:{add.photo}</li>
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Layout>
   );
 }
 

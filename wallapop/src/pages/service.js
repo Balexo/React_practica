@@ -12,6 +12,12 @@ export const login = (credentials) => {
   });
 };
 
+export const loginWithoutPersistance = (credentials) => {
+  return client.post("api/auth/login", credentials).then(({ accessToken }) => {
+    setAuthorizationHeader(accessToken);
+  });
+};
+
 export const getAdverts = () => {
   return client.get("/api/v1/adverts").catch((error) => {
     if (error.response) {

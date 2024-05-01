@@ -1,19 +1,23 @@
-import { login } from "../service";
+import { login, loginWithoutPersistance } from "../service";
 import { Button } from "../../components/Button";
 import { useState } from "react";
 
 export function LoginPage({ onLogin }) {
-  //const [email, setEmail] = useState("");
-  //const [password, setPassword] = useState("");
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
   });
 
+  const [checkValue, setCheckValue] = useState(false);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await login(formValues);
+    if (checkValue) {
+      const response = await login(formValues);
+    } else {
+      const response = await loginWithoutPersistance(formValues);
+    }
     onLogin();
   };
 
@@ -24,24 +28,39 @@ export function LoginPage({ onLogin }) {
     }));
   };
 
+  const handleCheckBox = (event) => {
+    setCheckValue(event.target.checked);
+  };
+
   const { email, password } = formValues;
   const buttonDisabled = !email || !password;
   return (
     <div>
       <h1>Log in to Nodepop</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="email"
-          value={email}
-          onChange={handleChange}
-        ></input>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleChange}
-        ></input>
+        <div>
+          <input
+            type="text"
+            name="email"
+            value={email}
+            onChange={handleChange}
+          ></input>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+          ></input>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            name="checkbox"
+            value="checkbox"
+            onChange={handleCheckBox}
+          ></input>
+          <label>Keep accesToken for next session</label>
+        </div>
         <Button type="submit" disabled={buttonDisabled}>
           Login
         </Button>
