@@ -7,9 +7,14 @@ function App({ isDefaultLogged }) {
   const [isLogged, setIsLogged] = useState(isDefaultLogged);
 
   const handleLogin = () => setIsLogged(true);
+  const handleLogout = () => setIsLogged(false);
   return (
     <section>
-      {isLogged ? <AdvertsPage /> : <LoginPage onLogin={handleLogin} />}
+      {isLogged ? (
+        <AdvertsPage onLogout={handleLogout} />
+      ) : (
+        <LoginPage onLogin={handleLogin} />
+      )}
     </section>
   );
 }

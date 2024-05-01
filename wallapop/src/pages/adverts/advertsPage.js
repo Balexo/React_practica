@@ -1,33 +1,20 @@
 import styles from "./advertsPage.module.css";
 import { getAdverts } from "../service";
 import { useState, useEffect } from "react";
+import { logout } from "../service";
+import { Button } from "../../components/Button";
 
-const adds = [
-  {
-    id: "60ca495b-ece0-49da-8a34-34cebc053938",
-    createdAt: "2024-04-29T13:07:50.000Z",
-    name: "mesa",
-    sale: true,
-    price: 25,
-    tags: ["lifestyle"],
-    photo: null,
-  },
-  {
-    id: "3a84f308-dd51-4816-805f-14bdbc746064",
-    createdAt: "2024-04-29T13:08:46.000Z",
-    name: "silla",
-    sale: true,
-    price: 45,
-    tags: ["lifestyle"],
-    photo: null,
-  },
-];
-function AdvertsPage() {
-  const [adverts, setAdvertsPanel] = useState([]);
+function AdvertsPage({ onLogout }) {
+  const [adverts, setAdverts] = useState([]);
 
   useEffect(() => {
-    getAdverts().then((adverts) => setAdvertsPanel(adverts));
+    getAdverts().then((adverts) => setAdverts(adverts));
   }, []);
+
+  const handleLogout = async () => {
+    await logout();
+    onLogout();
+  };
 
   function tagsAdd(tagsList) {
     const tags = tagsList.map((tag) => {
@@ -38,6 +25,7 @@ function AdvertsPage() {
   return (
     <div>
       <ul className={styles.advertsList}>
+        <Button onClick={handleLogout}>Logout</Button>
         {adverts.map((add) => (
           <li key={add.id}>
             <ul>
