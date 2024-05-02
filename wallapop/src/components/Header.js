@@ -1,29 +1,19 @@
+import clsx from "clsx";
 import { ReactComponent as Icon } from "../assets/svgImage.svg";
-import { Button } from "./Button";
-import { logout } from "../pages/service";
-import { useAuth } from "../pages/auth/context";
+import AuthButton from "./AuthButton";
 
-export default function Header() {
-  const { isLogged, onLogout } = useAuth();
-  const handleLogout = async () => {
-    await logout();
-    onLogout();
-  };
+export default function Header({ className }) {
   return (
-    <header>
-      <div>
+    <header className={clsx("header", className)}>
+      <div className="header-logo">
         <div>
           <p>
             <Icon width={52} hegith={50} fill="blue" text="Wallapop" />
             Walla
           </p>
         </div>
-        <nav>
-          {isLogged ? (
-            <Button onClick={handleLogout}>Logout</Button>
-          ) : (
-            <Button>Log in</Button>
-          )}
+        <nav className="header-nav">
+          <AuthButton className="header-button"></AuthButton>
         </nav>
       </div>
     </header>
