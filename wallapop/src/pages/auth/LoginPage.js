@@ -2,8 +2,11 @@ import { login } from "../service";
 import { Button } from "../../components/Button";
 import { useState } from "react";
 import { useAuth } from "./context";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function LoginPage() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { onLogin } = useAuth();
   const [formValues, setFormValues] = useState({
     email: "",
@@ -15,9 +18,10 @@ export function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await login(formValues, checkValue);
-
+    await login(formValues, checkValue);
     onLogin();
+    const to = location.state?.from || "/";
+    navigate(to, { replace: true });
   };
 
   const handleChange = (event) => {
