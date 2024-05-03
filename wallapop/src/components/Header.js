@@ -7,7 +7,7 @@ import { Link, NavLink } from "react-router-dom";
 export default function Header({ className }) {
   return (
     <header className={clsx("header", className)}>
-      <Link to="/">
+      <Link to="/v1/adverts">
         <div className="header-logo">
           <p>
             <Icon width={52} hegith={50} fill="blue" text="Wallapop" />
