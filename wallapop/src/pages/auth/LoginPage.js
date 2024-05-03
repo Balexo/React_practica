@@ -20,7 +20,7 @@ export function LoginPage() {
 
     await login(formValues, checkValue);
     onLogin();
-    const to = location.state?.from || "/";
+    const to = location.state?.from || "/auth/login";
     navigate(to, { replace: true });
   };
 

@@ -5,6 +5,8 @@ function RequireAuth({ children }) {
   const location = useLocation();
   const { isLogged } = useAuth();
 
+  console.log(location);
+
   return isLogged ? (
     children
   ) : (
