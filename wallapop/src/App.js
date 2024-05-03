@@ -4,6 +4,7 @@ import AdvertsPage from "./pages/adverts/advertsPage";
 import { LoginPage } from "./pages/auth/LoginPage";
 import { useAuth } from "./pages/auth/context";
 import RequireAuth from "./components/RequireAuth";
+import AdvertPage from "./pages/AdvertPage";
 
 function App() {
   //const { isLogged } = useAuth();
@@ -23,6 +24,7 @@ function App() {
         }
       >
         <Route index element={<AdvertsPage />} />
+        <Route path=":advertId" element={<AdvertPage />} />
       </Route>
     </Routes>
   );

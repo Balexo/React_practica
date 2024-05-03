@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "../../components/Button";
 import Layout from "../../components/Layout";
 import Advert from "../../components/Advert";
+import { Link } from "react-router-dom";
 
 function AdvertsPage() {
   const [adverts, setAdverts] = useState([]);
@@ -21,20 +22,17 @@ function AdvertsPage() {
     );
   }
 
-  function tagsAdd(tagsList) {
-    const tags = tagsList.map((tag) => {
-      return `${tag}`;
-    });
-    return tags.join(" ");
-  }
-
   return (
     <Layout title="All adverts">
       <div className="advertsPage">
         {adverts.length > 0 ? (
           <ul className={styles.advertsList}>
-            {adverts.map((add) => (
-              <Advert {...add}></Advert>
+            {adverts.map((advert) => (
+              <li key={advert.id}>
+                <Link to={`/v1/adverts/${advert.id}`}>
+                  <Advert {...advert} />
+                </Link>
+              </li>
             ))}
           </ul>
         ) : (

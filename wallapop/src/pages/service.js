@@ -18,6 +18,10 @@ export const getAdverts = () => {
   return client.get("/api/v1/adverts");
 };
 
+export const getUniqueAdvert = (advertId) => {
+  return client.get(`/api/v1/adverts/${advertId}`);
+};
+
 export const logout = () => {
   return Promise.resolve().then(() => {
     removeAuthorizationHeader();

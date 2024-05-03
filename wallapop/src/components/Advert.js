@@ -1,3 +1,5 @@
+import "./Advert.css";
+
 const Advert = ({ id, name, price, sale, tags, photo }) => {
   return (
     <li className="advert-id">
