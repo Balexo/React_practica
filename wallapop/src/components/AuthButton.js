@@ -1,6 +1,7 @@
 import { Button } from "./Button";
 import { useAuth } from "../pages/auth/context";
 import { logout } from "../pages/service";
+import { Link } from "react-router-dom";
 
 function AuthButton({ className }) {
   const { isLogged, onLogout } = useAuth();
@@ -14,7 +15,9 @@ function AuthButton({ className }) {
       Logout
     </Button>
   ) : (
-    <Button className={className}>Login</Button>
+    <Button className={className} as={Link} to="/auth/login">
+      Login
+    </Button>
   );
 }
 

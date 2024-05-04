@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Layout from "../components/Layout";
 import { useState, useEffect } from "react";
 import { Button } from "../components/Button";
@@ -8,11 +8,19 @@ import Advert from "../components/Advert";
 export function AdvertPage() {
   const params = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [error, setError] = useState(null);
   const [confirmToDelete, setConfirmToDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [advert, setAdvert] = useState(null);
+
+  const resetError = () => {
+    setError(null);
+    navigate("/v1/adverts");
+    const to = location.state?.fvrom || "/";
+    navigate(to, { replace: true });
+  };
 
   useEffect(() => {
     async function fetchAdvert() {
@@ -47,24 +55,23 @@ export function AdvertPage() {
   return (
     <Layout title="Advert detail">
       {advert && (
-        <Advert
-          id={advert.id}
-          photo={advert.photo}
-          name={advert.name}
-          price={advert.price}
-          tags={advert.tags}
-        />
+        <>
+          <Advert
+            id={advert.id}
+            photo={advert.photo}
+            name={advert.name}
+            price={advert.price}
+            tags={advert.tags}
+          />
+          {!confirmToDelete && !error && (
+            <Button onClick={handleDeleteRequest} disabled={isDeleting}>
+              Delete Advert
+            </Button>
+          )}
+        </>
       )}
-      {!confirmToDelete && (
-        <Button onClick={handleDeleteRequest} disabled={isDeleting}>
-          Delete Advert
-        </Button>
-      )}
-      {error && (
-        <div className="Advert-delete-error" onClick={() => setError(null)}>
-          {error}
-        </div>
-      )}
+      {error && <div className="Advert-delete-error">{`${error}`}</div>}
+      <Button onClick={resetError}>Click here to go back</Button>
       {confirmToDelete && (
         <div className="Advert-confirm-to-delete">
           <p>Do you confirm to delete this ad?</p>

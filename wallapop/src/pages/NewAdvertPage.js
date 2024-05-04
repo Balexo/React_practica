@@ -67,6 +67,18 @@ export default function NewAdvertPage() {
     }));
   }, [selectedTags, photo]);
 
+  useEffect(() => {
+    const getTagsFromApi = async () => {
+      try {
+        const response = await tagsAdvert();
+        setAvaliableTags(response);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getTagsFromApi();
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -107,7 +119,7 @@ export default function NewAdvertPage() {
           label="Familias de producto"
           type="text"
           name="tags"
-          optionsArray={["Lifestyle", "Motor", "Mobile", "Work"]}
+          optionsArray={avaliableTags}
           value={selectedTags}
           multiple
           onChange={handleSelectTagChange}
