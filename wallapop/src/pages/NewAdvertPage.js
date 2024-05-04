@@ -1,9 +1,12 @@
 import FormField from "../components/FormField";
-import { useState } from "react";
-import { newAd } from "./service";
+import { useEffect, useState } from "react";
+import { newAd, tagsAdvert } from "./service";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import { Button } from "../components/Button";
+import CheckBox from "../components/CheckBox";
+import SelectList from "../components/SelectList";
+import FileUploadImage from "../components/FileUpload";
 
 export default function NewAdvertPage() {
   const [formValues, setFormValues] = useState({
@@ -15,28 +18,65 @@ export default function NewAdvertPage() {
   });
 
   const [checkBoxValue, setChekBoxValue] = useState(true);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [avaliableTags, setAvaliableTags] = useState([]);
+  const [photo, setPhoto] = useState("");
+
   const navigate = useNavigate();
-  const { name, sale, price, tags, photo } = formValues;
+  const { name, sale, price, tags } = formValues;
   const buttonDisabled = !name || !sale || price <= 0 || tags.length === 0;
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    await newAd(formValues);
-    navigate("/v1/adverts");
-  };
-
   const handleChange = (event) => {
-    setFormValues((currentValues) => ({
-      ...currentValues,
+    setFormValues((currentFormValues) => ({
+      ...currentFormValues,
       [event.target.name]: event.target.value,
     }));
   };
+
   const handleCheckBoxChange = () => {
     setChekBoxValue((previousState) => !previousState);
     setFormValues((currentValues) => ({
       ...currentValues,
       sale: !currentValues.sale,
     }));
+  };
+
+  const handleSelectTagChange = (event, item) => {
+    if (event.target.checked) {
+      setSelectedTags((prevTags) => [...prevTags, item]);
+    } else {
+      setSelectedTags((prevTags) => prevTags.filter((tag) => tag !== item));
+    }
+  };
+
+  const handleFileUpload = (photo) => {
+    setPhoto(photo);
+  };
+
+  useEffect(() => {
+    tagsAdvert().then((tags) => {
+      setAvaliableTags(tags);
+    });
+  }, []);
+
+  useEffect(() => {
+    setFormValues((currentFormValues) => ({
+      ...currentFormValues,
+      tags: selectedTags,
+      photo: photo,
+    }));
+  }, [selectedTags, photo]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await newAd(formValues);
+      navigate("/v1/adverts");
+    } catch (error) {
+      if (error.status === 401) {
+        navigate("/login");
+      }
+    }
   };
 
   return (
@@ -46,16 +86,16 @@ export default function NewAdvertPage() {
           label="Nombre"
           type="text"
           name="name"
-          value={name}
+          value={formValues.name}
           onChange={handleChange}
         ></FormField>
-        <FormField
+        <CheckBox
           label="En venta"
           type="checkbox"
           name="sale"
-          value={sale}
-          onChange={handleChange}
-        ></FormField>
+          checked={checkBoxValue}
+          onChange={handleCheckBoxChange}
+        ></CheckBox>
         <FormField
           label="Precio"
           type="text"
@@ -63,24 +103,21 @@ export default function NewAdvertPage() {
           value={price}
           onChange={handleChange}
         ></FormField>
-        <FormField
+        <SelectList
           label="Familias de producto"
           type="text"
           name="tags"
-          value={tags}
-          onChange={handleCheckBoxChange}
-        ></FormField>
-        <FormField
-          label="Foto"
-          type="text"
-          name="photo"
-          value={photo}
-          onChange={handleChange}
-        ></FormField>
+          optionsArray={["Lifestyle", "Motor", "Mobile", "Work"]}
+          value={selectedTags}
+          multiple
+          onChange={handleSelectTagChange}
+        ></SelectList>
+        <FileUploadImage onChange={handleFileUpload} />
+
+        <Button type="submit" disabled={buttonDisabled}>
+          Submit
+        </Button>
       </form>
-      <Button type="submit" disabled={buttonDisabled}>
-        Submit
-      </Button>
     </Layout>
   );
 }

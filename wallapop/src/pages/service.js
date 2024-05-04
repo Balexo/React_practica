@@ -37,7 +37,13 @@ export const newAd = (advert) => {
     tags: [advert.tags],
     photo: advert.photo,
   };
-  console.log("Esto es el advert que le llega a service", advert);
-  console.log("Esto es newAdvert transformado en service", dataNewAdd);
-  return client.post("/api/v1/adverts", dataNewAdd);
+  return client.post("/api/v1/adverts", dataNewAdd, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+export const tagsAdvert = () => {
+  return client.get("/api/v1/adverts/tags");
 };
