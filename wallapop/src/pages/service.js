@@ -47,3 +47,7 @@ export const newAd = (advert) => {
 export const tagsAdvert = () => {
   return client.get("/api/v1/adverts/tags");
 };
+
+export const deleteAd = (advertId) => {
+  return client.delete(`/api/v1/adverts/${advertId}`);
+};
