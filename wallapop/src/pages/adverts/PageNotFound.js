@@ -1,9 +1,9 @@
 import Layout from "../../components/Layout";
-import { Navigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "../../components/Button";
 function PageNotFound() {
-  const navigate = Navigate;
+  const navigate = useNavigate();
   const location = useLocation();
   const [error, setError] = useState(null);
 
@@ -16,7 +16,7 @@ function PageNotFound() {
   return (
     <Layout>
       <div>Error 404: This page does not exist any more</div>
-      <Button onClick={resetError}>Come back</Button>
+      <Button onClick={resetError}> Go back</Button>
     </Layout>
   );
 }
