@@ -49,16 +49,6 @@ function AdvertsPage() {
     );
   }
 
-  /*
-  <div>
-        <h2>Filter by Tag:</h2>
-        <button onClick={() => handleFilterTag(tagAdvert[0])}>Lifestyle</button>
-        <button onClick={() => handleFilterTag(tagAdvert[1])}>Mobile</button>
-        <button onClick={() => handleFilterTag(tagAdvert[2])}>Motor</button>
-        <button onClick={() => handleFilterTag(tagAdvert[3])}>Work</button>
-      </div>
-    */
-
   return (
     <Layout title="All adverts">
       <FilterName

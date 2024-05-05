@@ -23,8 +23,8 @@ export default function NewAdvertPage() {
   const [photo, setPhoto] = useState("");
 
   const navigate = useNavigate();
-  const { name, sale, price, tags } = formValues;
-  const buttonDisabled = !name || !sale || price <= 0 || tags.length === 0;
+  const { name, price, tags } = formValues;
+  const buttonDisabled = !name || price <= 0 || tags.length === 0;
 
   const handleChange = (event) => {
     setFormValues((currentFormValues) => ({
