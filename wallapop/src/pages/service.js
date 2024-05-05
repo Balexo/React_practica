@@ -35,7 +35,7 @@ export const newAd = (advert) => {
     sale: advert.sale,
     price: advert.price,
     tags: [advert.tags],
-    photo: advert.photo,
+    photo: advert.photo || null,
   };
   return client.post("/api/v1/adverts", dataNewAdd, {
     headers: {
