@@ -1,13 +1,16 @@
 import { login } from "../service";
 import { Button } from "../../components/Button";
 import { useState } from "react";
-import { useAuth } from "./context";
+//import { useAuth } from "./context";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authLogin } from "../../store/actions";
 
 export function LoginPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { onLogin } = useAuth();
+  //const { onLogin } = useAuth();
+  const dispatch = useDispatch();
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
@@ -18,10 +21,13 @@ export function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await login(formValues, checkValue);
-    onLogin();
-    const to = location.state?.from || "/auth/login";
-    navigate(to, { replace: true });
+    try {
+      await login(formValues, checkValue);
+      //onLogin();
+      dispatch(authLogin());
+      const to = location.state?.from || "/auth/login";
+      navigate(to, { replace: true });
+    } catch (error) {}
   };
 
   const handleChange = (event) => {

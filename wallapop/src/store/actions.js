@@ -8,9 +8,9 @@ export const authLogout = () => ({
   type: AUTH_LOGOUT,
 });
 
-export const adsCreated = (ads) => ({
+export const adsCreated = (ad) => ({
   type: ADS_CREATED,
-  payload: ads,
+  payload: ad,
 });
 
 export const adsLoaded = (ads) => ({

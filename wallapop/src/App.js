@@ -2,7 +2,7 @@ import { Route, Routes, Outlet, Navigate } from "react-router-dom";
 import "./App.css";
 import AdvertsPage from "./pages/adverts/advertsPage";
 import { LoginPage } from "./pages/auth/LoginPage";
-import RequireAuth from "./components/RequireAuth";
+import RequireAuth from "./pages/auth/RequireAuth";
 import AdvertPage from "./pages/AdvertPage";
 import NewAdvertPage from "./pages/NewAdvertPage";
 import PageNotFound from "./pages/adverts/PageNotFound";
