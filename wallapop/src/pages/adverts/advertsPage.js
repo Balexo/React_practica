@@ -8,12 +8,18 @@ import { Link } from "react-router-dom";
 import FilterName from "../../components/FilterName";
 import { tagsAdvert } from "../service";
 import FilterTag from "../../components/FilterTag";
+import { useDispatch, useSelector } from "react-redux";
+import { adsLoaded } from "../../store/actions";
+import { getListAds } from "../../store/selectors";
 
 function AdvertsPage() {
-  const [adverts, setAdverts] = useState([]);
+  debugger;
+  const adverts = useSelector(getListAds);
+  debugger;
   const [filterName, setFilterName] = useState("");
   const [filterTag, setFilterTag] = useState("");
   const [tagAdvert, setTagAdvert] = useState([]);
+  const dispatch = useDispatch();
 
   const handleFilterName = (event) => {
     setFilterName(event.target.value);
@@ -33,8 +39,11 @@ function AdvertsPage() {
     : filterAddsByName;
 
   useEffect(() => {
-    getAdverts().then((adverts) => setAdverts(adverts));
-  }, []);
+    debugger;
+    getAdverts().then((adverts) => {
+      dispatch(adsLoaded(adverts));
+    });
+  }, [dispatch]);
 
   useEffect(() => {
     tagsAdvert().then((tagAdvert) => setTagAdvert(tagAdvert));

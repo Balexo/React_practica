@@ -4,14 +4,13 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import storage from "./utils/storage";
 import { setAuthorizationHeader } from "./api/client";
-import { AuthContextProvider } from "./pages/auth/context";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import configureStore from "./store";
 
 const accessToken = storage.get("auth");
 
-const store = configureStore();
+const store = configureStore({ auth: !!accessToken });
 window.store = store;
 if (accessToken) {
   setAuthorizationHeader(accessToken);
@@ -22,9 +21,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <AuthContextProvider isDefaultLogged={!!accessToken}>
-          <App />
-        </AuthContextProvider>
+        <App />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
