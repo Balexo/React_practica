@@ -19,7 +19,7 @@ Node v16.14.0
 ### Backend Startup:
 The backend is based on the implementation in Nestjs developed by David Jiménez:
 
-`https://github.com/transitive-bullshit/chatgpt-api`
+`https://github.com/davidjj76/nodepop-api`
 
 ### Once cloned and its dependencies are installed, run:
 

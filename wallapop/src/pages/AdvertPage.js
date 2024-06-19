@@ -4,17 +4,22 @@ import { useState, useEffect } from "react";
 import { Button } from "../components/Button";
 import { getUniqueAdvert, deleteAd } from "./service";
 import Advert from "../components/Advert";
+import { useSelector } from "react-redux";
+import { getAd, getListAds } from "../store/selectors";
 
 export function AdvertPage() {
-  const params = useParams();
+  const { advertId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-
   const [error, setError] = useState(null);
   const [confirmToDelete, setConfirmToDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [advert, setAdvert] = useState(null);
-
+  //const [advert, setAdvert] = useState(null);
+  debugger;
+  const advert = useSelector(getAd(advertId));
+  debugger;
+  console.log(advert);
+  debugger;
   const resetError = () => {
     setError(null);
     navigate("/v1/adverts");
@@ -22,17 +27,17 @@ export function AdvertPage() {
     navigate(to, { replace: true });
   };
 
-  useEffect(() => {
-    async function fetchAdvert() {
-      try {
-        const fetchedAdvert = await getUniqueAdvert(params.advertId);
-        setAdvert(fetchedAdvert);
-      } catch (error) {
-        setError(error.message);
-      }
-    }
-    fetchAdvert();
-  }, [params.advertId]);
+  // useEffect(() => {
+  //   async function fetchAdvert() {
+  //     try {
+  //       const fetchedAdvert = await getUniqueAdvert(params.advertId);
+  //       setAdvert(fetchedAdvert);
+  //     } catch (error) {
+  //       setError(error.message);
+  //     }
+  //   }
+  //   fetchAdvert();
+  // }, [params.advertId]);
 
   const handleDeleteConfirm = async () => {
     try {

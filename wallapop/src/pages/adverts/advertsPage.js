@@ -15,6 +15,7 @@ import { getListAds } from "../../store/selectors";
 function AdvertsPage() {
   debugger;
   const adverts = useSelector(getListAds);
+  console.log(adverts);
   debugger;
   const [filterName, setFilterName] = useState("");
   const [filterTag, setFilterTag] = useState("");

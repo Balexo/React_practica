@@ -17,3 +17,7 @@ export const adsLoaded = (ads) => ({
   type: ADS_LOADED,
   payload: ads,
 });
+debugger;
+console.log(adsLoaded());
+debugger;
+console.log(adsLoaded);
