@@ -1,5 +1,4 @@
 import { Button } from "./Button";
-import { useAuth } from "../pages/auth/context";
 import { logout } from "../pages/service";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

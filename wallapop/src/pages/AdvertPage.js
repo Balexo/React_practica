@@ -5,21 +5,22 @@ import { Button } from "../components/Button";
 import { getUniqueAdvert, deleteAd } from "./service";
 import Advert from "../components/Advert";
 import { useSelector } from "react-redux";
-import { getAd, getListAds } from "../store/selectors";
+import { getAd } from "../store/selectors";
 
 export function AdvertPage() {
   const { advertId } = useParams();
+  debugger;
+  const advert = useSelector(getAd(advertId));
+  debugger;
+  console.log(advert);
+  debugger;
   const navigate = useNavigate();
   const location = useLocation();
   const [error, setError] = useState(null);
   const [confirmToDelete, setConfirmToDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   //const [advert, setAdvert] = useState(null);
-  debugger;
-  const advert = useSelector(getAd(advertId));
-  debugger;
-  console.log(advert);
-  debugger;
+
   const resetError = () => {
     setError(null);
     navigate("/v1/adverts");

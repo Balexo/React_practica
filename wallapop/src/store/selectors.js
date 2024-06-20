@@ -3,3 +3,5 @@ export const getListAds = (state) => state.ads;
 
 export const getAd = (adId) => (state) =>
   getListAds(state).find((ad) => ad.id === Number(adId));
+
+export const getUi = (state) => state.ui;
