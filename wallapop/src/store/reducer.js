@@ -22,7 +22,9 @@ export function ads(state = defaultState.ads, action) {
     case ADS_CREATED:
       console.log(action.payload);
       console.log(state);
-      return { data: [action.payload], ...state };
+      console.log(state.data);
+      //return { data: [action.payload], ...state };
+      return { ...state, data: [...state.data, action.payload] };
     case ADS_LOADED:
       return action.payload;
     default:
