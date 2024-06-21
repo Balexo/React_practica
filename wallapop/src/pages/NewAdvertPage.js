@@ -7,6 +7,8 @@ import { Button } from "../components/Button";
 import CheckBox from "../components/CheckBox";
 import SelectList from "../components/SelectList";
 import FileUploadImage from "../components/FileUpload";
+import { useDispatch } from "react-redux";
+import { adsCreated } from "../store/actions";
 
 export default function NewAdvertPage() {
   const [formValues, setFormValues] = useState({
@@ -25,6 +27,7 @@ export default function NewAdvertPage() {
   const navigate = useNavigate();
   const { name, price, tags } = formValues;
   const buttonDisabled = !name || price <= 0 || tags.length === 0;
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     setFormValues((currentFormValues) => ({
@@ -82,9 +85,14 @@ export default function NewAdvertPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await newAd(formValues);
-      navigate("/v1/adverts");
+      const adCreated = await newAd(formValues);
+      console.log(adCreated);
+      dispatch(adsCreated(adCreated));
+      console.log("prenavigate");
+      navigate(`/v1/adverts/${adCreated.id}`);
+      console.log("postnavigate");
     } catch (error) {
+      console.log(error);
       if (error.status === 401) {
         navigate("/login");
       }

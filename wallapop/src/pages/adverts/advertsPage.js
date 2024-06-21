@@ -13,10 +13,7 @@ import { adsLoaded } from "../../store/actions";
 import { getListAds } from "../../store/selectors";
 
 function AdvertsPage() {
-  debugger;
   const adverts = useSelector(getListAds);
-  console.log(adverts);
-  debugger;
   const [filterName, setFilterName] = useState("");
   const [filterTag, setFilterTag] = useState("");
   const [tagAdvert, setTagAdvert] = useState([]);
@@ -40,7 +37,6 @@ function AdvertsPage() {
     : filterAddsByName;
 
   useEffect(() => {
-    debugger;
     getAdverts().then((adverts) => {
       dispatch(adsLoaded(adverts));
     });
