@@ -19,6 +19,12 @@ function AdvertsPage() {
   const [tagAdvert, setTagAdvert] = useState([]);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    getAdverts().then((adverts) => {
+      dispatch(adsLoaded(adverts));
+    });
+  }, [dispatch]);
+
   console.log(adverts);
 
   const handleFilterName = (event) => {
@@ -37,12 +43,6 @@ function AdvertsPage() {
   const filterAdds = filterTag
     ? filterAddsByName.filter((advert) => advert.tags.includes(filterTag))
     : filterAddsByName;
-
-  useEffect(() => {
-    getAdverts().then((adverts) => {
-      dispatch(adsLoaded(adverts));
-    });
-  }, [dispatch]);
 
   useEffect(() => {
     tagsAdvert().then((tagAdvert) => setTagAdvert(tagAdvert));
