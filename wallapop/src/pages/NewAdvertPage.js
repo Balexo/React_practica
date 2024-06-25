@@ -9,6 +9,7 @@ import SelectList from "../components/SelectList";
 import FileUploadImage from "../components/FileUpload";
 import { useDispatch } from "react-redux";
 import { adsCreated } from "../store/actions";
+import { getAd } from "../store/selectors";
 
 export default function NewAdvertPage() {
   const [formValues, setFormValues] = useState({
@@ -88,6 +89,7 @@ export default function NewAdvertPage() {
       const adCreated = await newAd(formValues);
       console.log(adCreated);
       dispatch(adsCreated(adCreated));
+      console.log(adsCreated(adCreated));
       console.log("prenavigate");
       navigate(`/v1/adverts/${adCreated.id}`);
       console.log("postnavigate");

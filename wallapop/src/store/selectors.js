@@ -1,5 +1,6 @@
 export const getIsLogged = (state) => state.auth;
-export const getListAds = (state) => state.ads;
+export const getListAds = (state) => state.ads.data;
+console.log(getListAds());
 
 export const getAd = (adId) => (state) => {
   //const adsArray = Object.values(state.ads.data);
