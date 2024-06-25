@@ -9,11 +9,8 @@ import { getAd } from "../store/selectors";
 
 export function AdvertPage() {
   const { advertId } = useParams();
-  debugger;
   const advert = useSelector(getAd(advertId));
-  debugger;
   console.log(advert);
-  debugger;
   const navigate = useNavigate();
   const location = useLocation();
   const [error, setError] = useState(null);

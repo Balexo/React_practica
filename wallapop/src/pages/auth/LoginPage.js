@@ -88,7 +88,7 @@ export function LoginPage() {
         </Button>
       </form>
       {error && (
-        <div className="loginPage-error" onclick={resetError}>
+        <div className="loginPage-error" onClick={resetError}>
           {error.message}
         </div>
       )}

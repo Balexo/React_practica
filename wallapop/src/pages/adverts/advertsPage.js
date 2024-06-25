@@ -19,6 +19,8 @@ function AdvertsPage() {
   const [tagAdvert, setTagAdvert] = useState([]);
   const dispatch = useDispatch();
 
+  console.log(adverts);
+
   const handleFilterName = (event) => {
     setFilterName(event.target.value);
   };
