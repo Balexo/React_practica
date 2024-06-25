@@ -9,7 +9,6 @@ import SelectList from "../components/SelectList";
 import FileUploadImage from "../components/FileUpload";
 import { useDispatch } from "react-redux";
 import { adsCreated } from "../store/actions";
-import { getAd } from "../store/selectors";
 
 export default function NewAdvertPage() {
   const [formValues, setFormValues] = useState({

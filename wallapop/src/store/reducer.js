@@ -53,7 +53,3 @@ export function ui(state = defaultState.ui, action) {
       return state;
   }
 }
-
-// const reducer = combineReducers({ auth, ads });
-
-// export default reducer;
