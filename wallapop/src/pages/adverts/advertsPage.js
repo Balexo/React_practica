@@ -25,8 +25,6 @@ function AdvertsPage() {
     });
   }, [dispatch]);
 
-  console.log(adverts);
-
   const handleFilterName = (event) => {
     setFilterName(event.target.value);
   };

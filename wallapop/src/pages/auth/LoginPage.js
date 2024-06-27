@@ -10,7 +10,7 @@ import {
   uiResetError,
 } from "../../store/actions";
 import { getUi } from "../../store/selectors";
-import { UI_RESET_ERROR } from "../../store/types";
+import { authLogin } from "../../store/actions";
 
 export function LoginPage() {
   const location = useLocation();
@@ -27,15 +27,10 @@ export function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      dispatch(authLoginPending());
-      await login(formValues, checkValue);
-      dispatch(authLoginFulfilled());
-      const to = location.state?.from || "/auth/login";
-      navigate(to, { replace: true });
-    } catch (error) {
-      dispatch(authLoginRejected(error));
-    }
+    dispatch(authLogin(formValues));
+
+    const to = location.state?.from || "/auth/login";
+    navigate(to, { replace: true });
   };
 
   const handleChange = (event) => {

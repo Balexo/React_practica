@@ -10,7 +10,7 @@ import { getAd } from "../store/selectors";
 export function AdvertPage() {
   const { advertId } = useParams();
   const advert = useSelector(getAd(advertId));
-  console.log(advert);
+
   const navigate = useNavigate();
   const location = useLocation();
   const [error, setError] = useState(null);
