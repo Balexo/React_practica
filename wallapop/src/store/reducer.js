@@ -20,7 +20,10 @@ export const defaultState = {
 export function ads(state = defaultState.ads, action) {
   switch (action.type) {
     case ADS_CREATED:
-      return { ...state, data: [action.payload, ...state] };
+      return {
+        ...state,
+        data: [...state.data, action.payload],
+      };
     case ADS_LOADED_FULFILLED:
       return { ...state, loaded: true, data: action.payload };
     default:

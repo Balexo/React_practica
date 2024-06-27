@@ -4,7 +4,7 @@ export const getAds = (state) => state.ads.data;
 export const areAdsLoaded = (state) => state.ads.loaded;
 
 export const getAd = (adId) => (state) => {
-  const ad = state.ads.find((ad) => ad.id === adId);
+  const ad = state.ads.data.find((ad) => ad.id === adId);
   console.log(state);
   console.log(ad);
   return ad;
