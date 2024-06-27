@@ -1,16 +1,16 @@
 import {
   AUTH_LOGOUT,
   ADS_CREATED,
-  ADS_LOADED,
-  AUTH_LOGIN_PENDING,
   AUTH_LOGIN_FULFILLED,
-  AUTH_LOGIN_REJECTED,
-  UI_RESET_ERROR,
+  ADS_LOADED_FULFILLED,
 } from "./types";
 
 export const defaultState = {
   auth: false,
-  ads: [],
+  ads: {
+    loaded: false,
+    data: [],
+  },
   ui: {
     pending: false,
     error: null,
@@ -20,9 +20,9 @@ export const defaultState = {
 export function ads(state = defaultState.ads, action) {
   switch (action.type) {
     case ADS_CREATED:
-      return [...state, action.payload];
-    case ADS_LOADED:
-      return action.payload;
+      return { ...state, data: [action.payload, ...state] };
+    case ADS_LOADED_FULFILLED:
+      return { ...state, loaded: true, data: action.payload };
     default:
       return state;
   }
@@ -40,16 +40,17 @@ export function auth(state = defaultState.auth, action) {
 }
 
 export function ui(state = defaultState.ui, action) {
-  switch (action.type) {
-    case UI_RESET_ERROR:
-      return { ...state, error: null };
-    case AUTH_LOGIN_PENDING:
-      return { ...state, pending: true };
-    case AUTH_LOGIN_FULFILLED:
-      return { ...state, pending: false, error: null };
-    case AUTH_LOGIN_REJECTED:
-      return { ...state, pending: false, error: action.payload };
-    default:
-      return state;
+  if (action.error) {
+    return { ...state, pending: false, error: action.payload };
   }
+  if (action.type === "UI_RESET_ERROR") {
+    return { ...state, error: null };
+  }
+  if (action.type.endsWith("/pending")) {
+    return { ...state, pending: true };
+  }
+  if (action.type.endsWith("/fulfilled")) {
+    return { ...state, pending: false, error: null };
+  }
+  return state;
 }

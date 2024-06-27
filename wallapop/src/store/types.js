@@ -1,4 +1,7 @@
-export const ADS_LOADED = "ads/loaded";
+export const ADS_LOADED_PENDING = "ads/loaded/pending";
+export const ADS_LOADED_FULFILLED = "ads/loaded/fulfilled";
+export const ADS_LOADED_REJECTED = "ads/loaded/rejected";
+
 export const ADS_CREATED = "ads/created";
 
 export const AUTH_LOGIN_PENDING = "auth/login/pending";

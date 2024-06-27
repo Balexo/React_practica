@@ -15,13 +15,23 @@ const logger = (store) => (next) => (action) => {
   return result;
 };
 
+const timestamp = (store) => (next) => (action) => {
+  const newAction = {
+    ...action,
+    meta: {
+      ...action.meta,
+      timestamp: new Date(),
+    },
+  };
+  return next(newAction);
+};
 const composeEnhancers = composeWithDevTools({ actionCreators });
 
 export default function configureStore(preloadedState) {
   const store = createStore(
     reducer,
     preloadedState,
-    composeEnhancers(applyMiddleware(thunk, logger)),
+    composeEnhancers(applyMiddleware(thunk, timestamp, logger)),
   );
   return store;
 }

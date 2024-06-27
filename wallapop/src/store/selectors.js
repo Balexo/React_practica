@@ -1,5 +1,7 @@
 export const getIsLogged = (state) => state.auth;
-export const getListAds = (state) => state.ads;
+export const getListAds = (state) => state.ads.data;
+export const getAds = (state) => state.ads.data;
+export const areAdsLoaded = (state) => state.ads.loaded;
 
 export const getAd = (adId) => (state) => {
   const ad = state.ads.find((ad) => ad.id === adId);

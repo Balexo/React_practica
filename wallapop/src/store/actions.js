@@ -1,14 +1,17 @@
 import {
   AUTH_LOGOUT,
   ADS_CREATED,
-  ADS_LOADED,
   AUTH_LOGIN_PENDING,
   AUTH_LOGIN_FULFILLED,
   AUTH_LOGIN_REJECTED,
   UI_RESET_ERROR,
+  ADS_LOADED_PENDING,
+  ADS_LOADED_FULFILLED,
+  ADS_LOADED_REJECTED,
 } from "./types";
 
-import { login } from "../pages/service";
+import { getAdverts, login } from "../pages/service";
+import { areAdsLoaded } from "./selectors";
 
 export const authLoginPending = () => ({
   type: AUTH_LOGIN_PENDING,
@@ -45,11 +48,35 @@ export const adsCreated = (ad) => ({
   payload: ad,
 });
 
-export const adsLoaded = (ads) => ({
-  type: ADS_LOADED,
+export const adsLoadedPending = (ads) => ({
+  type: ADS_LOADED_PENDING,
+});
+
+export const adsLoadedFulfilled = (ads) => ({
+  type: ADS_LOADED_FULFILLED,
   payload: ads,
 });
 
+export const adsLoadedRejected = (ads) => ({
+  type: ADS_LOADED_REJECTED,
+  error: true,
+});
+
+export const loadAds = () => {
+  return async function (dispatch, getState) {
+    if (areAdsLoaded(getState())) {
+      return;
+    }
+    try {
+      dispatch(adsLoadedPending());
+      const ads = await getAdverts();
+      dispatch(adsLoadedFulfilled(ads));
+    } catch (error) {
+      dispatch(adsLoadedRejected(error));
+      throw error;
+    }
+  };
+};
 export const uiResetError = () => ({
   type: UI_RESET_ERROR,
 });

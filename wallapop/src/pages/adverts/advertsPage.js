@@ -9,7 +9,7 @@ import FilterName from "../../components/FilterName";
 import { tagsAdvert } from "../service";
 import FilterTag from "../../components/FilterTag";
 import { useDispatch, useSelector } from "react-redux";
-import { adsLoaded } from "../../store/actions";
+import { adsLoaded, loadAds } from "../../store/actions";
 import { getListAds } from "../../store/selectors";
 
 function AdvertsPage() {
@@ -20,9 +20,10 @@ function AdvertsPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getAdverts().then((adverts) => {
-      dispatch(adsLoaded(adverts));
-    });
+    dispatch(loadAds());
+    // getAdverts().then((adverts) => {
+    //   dispatch(adsLoaded(adverts));
+    // });
   }, [dispatch]);
 
   const handleFilterName = (event) => {
