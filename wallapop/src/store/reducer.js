@@ -4,6 +4,7 @@ import {
   AUTH_LOGIN_FULFILLED,
   ADS_LOADED_FULFILLED,
   ADS_DELETED_FULFILLED,
+  ADS_TAGS_FULFILLED,
 } from "./types";
 
 export const defaultState = {
@@ -12,6 +13,7 @@ export const defaultState = {
     loaded: false,
     data: [],
   },
+  tags: [],
   ui: {
     pending: false,
     error: null,
@@ -43,6 +45,15 @@ export function auth(state = defaultState.auth, action) {
       return true;
     case AUTH_LOGOUT:
       return false;
+    default:
+      return state;
+  }
+}
+
+export function tags(state = defaultState.tags, action) {
+  switch (action.type) {
+    case ADS_TAGS_FULFILLED:
+      return action.payload;
     default:
       return state;
   }

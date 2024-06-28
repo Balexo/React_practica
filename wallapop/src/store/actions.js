@@ -13,11 +13,19 @@ import {
   ADS_DELETED_PENDING,
   ADS_DELETED_FULFILLED,
   ADS_DELETED_REJECTED,
+  ADS_TAGS_FULFILLED,
+  ADS_TAGS_PENDING,
+  ADS_TAGS_REJECTED,
 } from "./types";
 
-import { getAdverts, login } from "../pages/service";
+import {
+  getAdverts,
+  login,
+  newAd,
+  deleteAd,
+  tagsAdvert,
+} from "../pages/service";
 import { areAdsLoaded } from "./selectors";
-import { newAd, deleteAd } from "../pages/service";
 
 //LOGIN
 
@@ -151,3 +159,32 @@ export const deletedAd = (advertId) => {
 export const uiResetError = () => ({
   type: UI_RESET_ERROR,
 });
+
+//TAGS
+export const tagsPending = () => ({
+  type: ADS_TAGS_PENDING,
+});
+
+export const tagsFulfilled = (tags) => ({
+  type: ADS_TAGS_FULFILLED,
+  payload: tags,
+});
+
+export const tagsRejected = (error) => ({
+  type: ADS_TAGS_REJECTED,
+  payload: error,
+  error: true,
+});
+
+export const loadTags = () => {
+  return async function (dispatch) {
+    try {
+      dispatch(tagsPending());
+      const tags = await tagsAdvert();
+      dispatch(tagsFulfilled(tags));
+    } catch (error) {
+      dispatch(tagsRejected());
+      throw error;
+    }
+  };
+};

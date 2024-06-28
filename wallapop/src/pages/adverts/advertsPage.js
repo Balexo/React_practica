@@ -8,7 +8,7 @@ import FilterName from "../../components/FilterName";
 import { tagsAdvert } from "../service";
 import FilterTag from "../../components/FilterTag";
 import { useDispatch, useSelector } from "react-redux";
-import { loadAds } from "../../store/actions";
+import { loadAds, loadTags } from "../../store/actions";
 import { getListAds } from "../../store/selectors";
 
 function AdvertsPage() {
@@ -20,6 +20,7 @@ function AdvertsPage() {
 
   useEffect(() => {
     dispatch(loadAds());
+    dispatch(loadTags());
   }, [dispatch]);
 
   const handleFilterName = (event) => {
@@ -38,10 +39,6 @@ function AdvertsPage() {
   const filterAdds = filterTag
     ? filterAddsByName.filter((advert) => advert.tags.includes(filterTag))
     : filterAddsByName;
-
-  useEffect(() => {
-    tagsAdvert().then((tagAdvert) => setTagAdvert(tagAdvert));
-  }, []);
 
   function EmptyAdverts() {
     return (

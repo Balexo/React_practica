@@ -14,6 +14,10 @@ export const AUTH_LOGIN_PENDING = "auth/login/pending";
 export const AUTH_LOGIN_FULFILLED = "auth/login/fulfilled";
 export const AUTH_LOGIN_REJECTED = "auth/login/rejected";
 
+export const ADS_TAGS_PENDING = "ads/tags/pending";
+export const ADS_TAGS_FULFILLED = "ads/tags/fulfilled";
+export const ADS_TAGS_REJECTED = "ads/tags/rejected";
+
 export const AUTH_LOGOUT = "auth/logout";
 
 export const UI_RESET_ERROR = "ui/reset-error";
