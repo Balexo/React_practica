@@ -1,6 +1,6 @@
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Layout from "../components/Layout";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "../components/Button";
 import { getUniqueAdvert, deleteAd } from "./service";
 import Advert from "../components/Advert";

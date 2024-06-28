@@ -1,5 +1,4 @@
 import styles from "./advertsPage.module.css";
-import { getAdverts } from "../service";
 import { useState, useEffect } from "react";
 import { Button } from "../../components/Button";
 import Layout from "../../components/Layout";
@@ -9,7 +8,7 @@ import FilterName from "../../components/FilterName";
 import { tagsAdvert } from "../service";
 import FilterTag from "../../components/FilterTag";
 import { useDispatch, useSelector } from "react-redux";
-import { adsLoaded, loadAds } from "../../store/actions";
+import { loadAds } from "../../store/actions";
 import { getListAds } from "../../store/selectors";
 
 function AdvertsPage() {
@@ -21,9 +20,6 @@ function AdvertsPage() {
 
   useEffect(() => {
     dispatch(loadAds());
-    // getAdverts().then((adverts) => {
-    //   dispatch(adsLoaded(adverts));
-    // });
   }, [dispatch]);
 
   const handleFilterName = (event) => {

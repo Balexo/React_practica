@@ -8,7 +8,11 @@ import CheckBox from "../components/CheckBox";
 import SelectList from "../components/SelectList";
 import FileUploadImage from "../components/FileUpload";
 import { useDispatch } from "react-redux";
-import { adsCreated } from "../store/actions";
+import {
+  adsCreatedFulfilled,
+  adsCreatedPending,
+  createAds,
+} from "../store/actions";
 import { getAd } from "../store/selectors";
 
 export default function NewAdvertPage() {
@@ -86,13 +90,8 @@ export default function NewAdvertPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const adCreated = await newAd(formValues);
-      console.log(adCreated);
-      dispatch(adsCreated(adCreated));
-      console.log(adsCreated(adCreated));
-      console.log("prenavigate");
+      const adCreated = await dispatch(createAds(formValues));
       navigate(`/v1/adverts/${adCreated.id}`);
-      console.log("postnavigate");
     } catch (error) {
       console.log(error);
       if (error.status === 401) {

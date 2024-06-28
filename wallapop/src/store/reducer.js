@@ -1,6 +1,6 @@
 import {
   AUTH_LOGOUT,
-  ADS_CREATED,
+  ADS_CREATED_FULFILLED,
   AUTH_LOGIN_FULFILLED,
   ADS_LOADED_FULFILLED,
 } from "./types";
@@ -19,7 +19,7 @@ export const defaultState = {
 
 export function ads(state = defaultState.ads, action) {
   switch (action.type) {
-    case ADS_CREATED:
+    case ADS_CREATED_FULFILLED:
       return {
         ...state,
         data: [...state.data, action.payload],
