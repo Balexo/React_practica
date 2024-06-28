@@ -1,14 +1,8 @@
-import { login } from "../service";
 import { Button } from "../../components/Button";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  authLoginFulfilled,
-  authLoginPending,
-  authLoginRejected,
-  uiResetError,
-} from "../../store/actions";
+import { uiResetError } from "../../store/actions";
 import { getUi } from "../../store/selectors";
 import { authLogin } from "../../store/actions";
 
@@ -22,7 +16,7 @@ export function LoginPage() {
   });
   const { pending, error } = useSelector(getUi);
 
-  const [checkValue, setCheckValue] = useState(false);
+  const [setCheckValue] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

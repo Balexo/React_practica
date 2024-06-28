@@ -1,5 +1,5 @@
 import { Button } from "./Button";
-import { logout } from "../pages/service";
+import { logout } from "../pages/auth/service";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getIsLogged } from "../store/selectors";

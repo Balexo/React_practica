@@ -2,7 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "@redux-devtools/extension";
 import * as reducers from "./reducer";
 import * as actionCreators from "./actions";
-import { thunk } from "redux-thunk";
+import { thunk, withExtraArgument } from "redux-thunk";
 
 const reducer = combineReducers(reducers);
 
@@ -31,7 +31,11 @@ export default function configureStore(preloadedState) {
   const store = createStore(
     reducer,
     preloadedState,
-    composeEnhancers(applyMiddleware(thunk, timestamp, logger)),
+    composeEnhancers(
+      applyMiddleware(
+        withExtraArgument({ services: {} }, thunk, timestamp, logger),
+      ),
+    ),
   );
   return store;
 }

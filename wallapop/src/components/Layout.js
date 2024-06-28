@@ -1,6 +1,5 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import { children } from "react";
 
 export default function Layout({ children }) {
   return (

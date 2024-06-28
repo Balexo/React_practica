@@ -5,7 +5,6 @@ import Layout from "../../components/Layout";
 import Advert from "../../components/Advert";
 import { Link } from "react-router-dom";
 import FilterName from "../../components/FilterName";
-import { tagsAdvert } from "../service";
 import FilterTag from "../../components/FilterTag";
 import { useDispatch, useSelector } from "react-redux";
 import { loadAds, loadTags } from "../../store/actions";
@@ -15,7 +14,7 @@ function AdvertsPage() {
   const adverts = useSelector(getListAds);
   const [filterName, setFilterName] = useState("");
   const [filterTag, setFilterTag] = useState("");
-  const [tagAdvert, setTagAdvert] = useState([]);
+  const [tagAdvert] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {

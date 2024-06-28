@@ -1,11 +1,11 @@
 import "./Advert.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ImagenNoAvaliable from "../assets/imagenNoAvaliable.png";
 
 const Advert = ({ id, name, price, sale, tags, photo }) => {
   const formattedPrice = price.toFixed(2) + "€";
   const backupFoto = ImagenNoAvaliable;
-  const [imageToShow, setImagetoShow] = useState(photo || backupFoto);
+  const [imageToShow] = useState(photo || backupFoto);
 
   return (
     <ul className="advert-item" key={id}>

@@ -5,7 +5,7 @@ import { Button } from "../../components/Button";
 function PageNotFound() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [error, setError] = useState(null);
+  const [setError] = useState(null);
 
   const resetError = () => {
     setError(null);

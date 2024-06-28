@@ -1,6 +1,6 @@
 import FormField from "../components/FormField";
 import { useEffect, useState } from "react";
-import { newAd, tagsAdvert } from "./service";
+import { tagsAdvert } from "./service";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import { Button } from "../components/Button";
@@ -8,12 +8,7 @@ import CheckBox from "../components/CheckBox";
 import SelectList from "../components/SelectList";
 import FileUploadImage from "../components/FileUpload";
 import { useDispatch } from "react-redux";
-import {
-  adsCreatedFulfilled,
-  adsCreatedPending,
-  createAds,
-} from "../store/actions";
-import { getAd } from "../store/selectors";
+import { createAds } from "../store/actions";
 
 export default function NewAdvertPage() {
   const [formValues, setFormValues] = useState({

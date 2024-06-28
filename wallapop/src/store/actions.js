@@ -18,14 +18,9 @@ import {
   ADS_TAGS_REJECTED,
 } from "./types";
 
-import {
-  getAdverts,
-  login,
-  newAd,
-  deleteAd,
-  tagsAdvert,
-} from "../pages/service";
+import { getAdverts, newAd, deleteAd, tagsAdvert } from "../pages/service";
 import { areAdsLoaded } from "./selectors";
+import { login } from "../pages/auth/service";
 
 //LOGIN
 
