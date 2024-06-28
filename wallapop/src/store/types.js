@@ -6,6 +6,10 @@ export const ADS_CREATED_PENDING = "ads/created/pending";
 export const ADS_CREATED_FULFILLED = "ads/created/fulfilled";
 export const ADS_CREATED_REJECTED = "ads/created/rejected";
 
+export const ADS_DELETED_PENDING = "ads/deleted/pending";
+export const ADS_DELETED_FULFILLED = "ads/deleted/fulfilled";
+export const ADS_DELETED_REJECTED = "ads/deleted/rejected";
+
 export const AUTH_LOGIN_PENDING = "auth/login/pending";
 export const AUTH_LOGIN_FULFILLED = "auth/login/fulfilled";
 export const AUTH_LOGIN_REJECTED = "auth/login/rejected";

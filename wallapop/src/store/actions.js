@@ -10,11 +10,14 @@ import {
   ADS_CREATED_PENDING,
   ADS_CREATED_FULFILLED,
   ADS_CREATED_REJECTED,
+  ADS_DELETED_PENDING,
+  ADS_DELETED_FULFILLED,
+  ADS_DELETED_REJECTED,
 } from "./types";
 
 import { getAdverts, login } from "../pages/service";
 import { areAdsLoaded } from "./selectors";
-import { newAd } from "../pages/service";
+import { newAd, deleteAd } from "../pages/service";
 
 //LOGIN
 
@@ -109,6 +112,35 @@ export const loadAds = () => {
       dispatch(adsLoadedFulfilled(ads));
     } catch (error) {
       dispatch(adsLoadedRejected(error));
+      throw error;
+    }
+  };
+};
+
+//ADS DELETED
+export const adsDeletedPending = () => ({
+  type: ADS_DELETED_PENDING,
+});
+
+export const adsDeletedFulfilled = (adId) => ({
+  type: ADS_DELETED_FULFILLED,
+  payload: adId,
+});
+
+export const adsDeletedRejected = (error) => ({
+  type: ADS_DELETED_REJECTED,
+  payload: error,
+  error: true,
+});
+
+export const deletedAd = (advertId) => {
+  return async function (dispatch) {
+    try {
+      dispatch(adsDeletedPending());
+      await deleteAd(advertId);
+      dispatch(adsDeletedFulfilled(advertId));
+    } catch (error) {
+      dispatch(adsDeletedRejected(error));
       throw error;
     }
   };

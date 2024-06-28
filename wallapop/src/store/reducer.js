@@ -3,6 +3,7 @@ import {
   ADS_CREATED_FULFILLED,
   AUTH_LOGIN_FULFILLED,
   ADS_LOADED_FULFILLED,
+  ADS_DELETED_FULFILLED,
 } from "./types";
 
 export const defaultState = {
@@ -23,6 +24,11 @@ export function ads(state = defaultState.ads, action) {
       return {
         ...state,
         data: [...state.data, action.payload],
+      };
+    case ADS_DELETED_FULFILLED:
+      return {
+        ...state,
+        data: state.data.filter((ad) => ad.id !== action.payload),
       };
     case ADS_LOADED_FULFILLED:
       return { ...state, loaded: true, data: action.payload };

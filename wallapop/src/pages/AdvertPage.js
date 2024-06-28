@@ -2,10 +2,10 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Layout from "../components/Layout";
 import { useState } from "react";
 import { Button } from "../components/Button";
-import { getUniqueAdvert, deleteAd } from "./service";
 import Advert from "../components/Advert";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getAd } from "../store/selectors";
+import { deletedAd } from "../store/actions";
 
 export function AdvertPage() {
   const { advertId } = useParams();
@@ -13,6 +13,7 @@ export function AdvertPage() {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [confirmToDelete, setConfirmToDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -40,7 +41,7 @@ export function AdvertPage() {
   const handleDeleteConfirm = async () => {
     try {
       setIsDeleting(true);
-      await deleteAd(advert.id);
+      await dispatch(deletedAd(advertId));
       navigate("/v1/adverts");
     } catch (error) {
       setError(error.message);
