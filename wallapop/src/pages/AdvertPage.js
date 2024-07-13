@@ -42,7 +42,6 @@ export function AdvertPage() {
     try {
       setIsDeleting(true);
       await dispatch(deletedAd(advertId));
-      navigate("/v1/adverts");
     } catch (error) {
       setError(error.message);
     }

@@ -18,9 +18,7 @@ import {
   ADS_TAGS_REJECTED,
 } from "./types";
 
-import { getAdverts, newAd, deleteAd, tagsAdvert } from "../pages/service";
 import { areAdsLoaded } from "./selectors";
-import { login } from "../pages/auth/service";
 
 //LOGIN
 
@@ -39,11 +37,13 @@ export const authLoginRejected = (error) => ({
 });
 
 export const authLogin = (credentials) => {
-  return async function (dispatch) {
+  return async function (dispatch, _getState, { services: { auth }, router }) {
     try {
       dispatch(authLoginPending());
-      await login(credentials);
+      await auth.login(credentials);
       dispatch(authLoginFulfilled());
+      const to = router.state.location.state?.from || "/auth/login";
+      router.navigate(to, { replace: true });
     } catch (error) {
       dispatch(authLoginRejected(error));
     }
@@ -74,11 +74,12 @@ export const adsCreatedRejected = (error) => ({
 });
 
 export const createAds = (ad) => {
-  return async function (dispatch) {
+  return async function (dispatch, _getState, { services, router }) {
     try {
       dispatch(adsCreatedPending());
-      const adCreated = await newAd(ad);
+      const adCreated = await services.adverts.newAd(ad);
       dispatch(adsCreatedFulfilled(adCreated));
+      router.navigate(`/v1/adverts/${adCreated.id}`);
       return adCreated;
     } catch (error) {
       dispatch(adsCreatedRejected(error));
@@ -105,13 +106,13 @@ export const adsLoadedRejected = (error) => ({
 });
 
 export const loadAds = () => {
-  return async function (dispatch, getState) {
+  return async function (dispatch, getState, { services }) {
     if (areAdsLoaded(getState())) {
       return;
     }
     try {
       dispatch(adsLoadedPending());
-      const ads = await getAdverts();
+      const ads = await services.adverts.getAdverts();
       dispatch(adsLoadedFulfilled(ads));
     } catch (error) {
       dispatch(adsLoadedRejected(error));
@@ -137,11 +138,12 @@ export const adsDeletedRejected = (error) => ({
 });
 
 export const deletedAd = (advertId) => {
-  return async function (dispatch) {
+  return async function (dispatch, _getState, { services, router }) {
     try {
       dispatch(adsDeletedPending());
-      await deleteAd(advertId);
+      await services.adverts.deleteAd(advertId);
       dispatch(adsDeletedFulfilled(advertId));
+      router.navigate("/v1/adverts");
     } catch (error) {
       dispatch(adsDeletedRejected(error));
       throw error;
@@ -172,10 +174,10 @@ export const tagsRejected = (error) => ({
 });
 
 export const loadTags = () => {
-  return async function (dispatch) {
+  return async function (dispatch, _getState, { services }) {
     try {
       dispatch(tagsPending());
-      const tags = await tagsAdvert();
+      const tags = await services.adverts.tagsAdvert();
       dispatch(tagsFulfilled(tags));
     } catch (error) {
       dispatch(tagsRejected());

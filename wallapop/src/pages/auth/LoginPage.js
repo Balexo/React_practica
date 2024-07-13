@@ -1,14 +1,11 @@
 import { Button } from "../../components/Button";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { uiResetError } from "../../store/actions";
 import { getUi } from "../../store/selectors";
 import { authLogin } from "../../store/actions";
 
 export function LoginPage() {
-  const location = useLocation();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formValues, setFormValues] = useState({
     email: "",
@@ -16,15 +13,12 @@ export function LoginPage() {
   });
   const { pending, error } = useSelector(getUi);
 
-  const [setCheckValue] = useState(false);
+  const [checkValue, setCheckValue] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     dispatch(authLogin(formValues));
-
-    const to = location.state?.from || "/auth/login";
-    navigate(to, { replace: true });
   };
 
   const handleChange = (event) => {

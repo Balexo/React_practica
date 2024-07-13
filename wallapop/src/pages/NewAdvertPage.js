@@ -86,7 +86,7 @@ export default function NewAdvertPage() {
     event.preventDefault();
     try {
       const adCreated = await dispatch(createAds(formValues));
-      navigate(`/v1/adverts/${adCreated.id}`);
+      //navigate(`/v1/adverts/${adCreated.id}`);
     } catch (error) {
       console.log(error);
       if (error.status === 401) {

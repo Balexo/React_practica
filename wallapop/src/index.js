@@ -4,13 +4,14 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import storage from "./utils/storage";
 import { setAuthorizationHeader } from "./api/client";
-import { BrowserRouter } from "react-router-dom";
+import { Router, createBrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+import { RouterProvider } from "react-router-dom";
 import configureStore from "./store";
 
 const accessToken = storage.get("auth");
-
-const store = configureStore({ auth: !!accessToken });
+const router = createBrowserRouter([{ path: "*", element: <App /> }]);
+const store = configureStore({ auth: !!accessToken }, { router });
 window.store = store;
 if (accessToken) {
   setAuthorizationHeader(accessToken);
@@ -20,9 +21,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <RouterProvider router={router}></RouterProvider>
     </Provider>
   </React.StrictMode>,
 );
