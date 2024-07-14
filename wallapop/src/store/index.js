@@ -5,28 +5,11 @@ import * as actionCreators from "./actions";
 import { thunk, withExtraArgument } from "redux-thunk";
 import * as auth from "../pages/auth/service";
 import * as adverts from "../pages/service";
+import { failureRedirects } from "./middleware";
+import { timestamp, logger } from "./middleware";
 
 const reducer = combineReducers(reducers);
 
-const logger = (store) => (next) => (action) => {
-  console.group(action.type);
-  console.info("dispatching", action, store.getState());
-  const result = next(action);
-  console.log("final state", store.getState());
-  console.groupEnd();
-  return result;
-};
-
-const timestamp = (store) => (next) => (action) => {
-  const newAction = {
-    ...action,
-    meta: {
-      ...action.meta,
-      timestamp: new Date(),
-    },
-  };
-  return next(newAction);
-};
 const composeEnhancers = composeWithDevTools({ actionCreators });
 
 export default function configureStore(preloadedState, { router }) {
@@ -37,6 +20,10 @@ export default function configureStore(preloadedState, { router }) {
       applyMiddleware(
         withExtraArgument({ services: { auth, adverts }, router }),
         timestamp,
+        failureRedirects(router, {
+          401: "/auth/login",
+          404: "/404",
+        }),
         logger,
       ),
     ),

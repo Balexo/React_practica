@@ -1,7 +1,6 @@
 import FormField from "../components/FormField";
 import { useEffect, useState } from "react";
 import { tagsAdvert } from "./service";
-import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import { Button } from "../components/Button";
 import CheckBox from "../components/CheckBox";
@@ -24,7 +23,6 @@ export default function NewAdvertPage() {
   const [avaliableTags, setAvaliableTags] = useState([]);
   const [photo, setPhoto] = useState("");
 
-  const navigate = useNavigate();
   const { name, price, tags } = formValues;
   const buttonDisabled = !name || price <= 0 || tags.length === 0;
   const dispatch = useDispatch();
@@ -84,15 +82,7 @@ export default function NewAdvertPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const adCreated = await dispatch(createAds(formValues));
-      //navigate(`/v1/adverts/${adCreated.id}`);
-    } catch (error) {
-      console.log(error);
-      if (error.status === 401) {
-        navigate("/login");
-      }
-    }
+    const adCreated = await dispatch(createAds(formValues));
   };
 
   return (

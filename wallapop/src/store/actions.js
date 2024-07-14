@@ -157,6 +157,15 @@ export const uiResetError = () => ({
   type: UI_RESET_ERROR,
 });
 
+//GOBACK BUTTON
+export const navigateBack = () => {
+  return function (dispatch, _getState, { router }) {
+    router.navigate("/v1/adverts");
+    const to = router.state.location.state?.fvrom || "/";
+    router.navigate(to, { replace: true });
+  };
+};
+
 //TAGS
 export const tagsPending = () => ({
   type: ADS_TAGS_PENDING,

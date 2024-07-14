@@ -1,42 +1,25 @@
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import { useState } from "react";
 import { Button } from "../components/Button";
 import Advert from "../components/Advert";
 import { useSelector, useDispatch } from "react-redux";
 import { getAd } from "../store/selectors";
-import { deletedAd } from "../store/actions";
+import { deletedAd, navigateBack } from "../store/actions";
 
 export function AdvertPage() {
   const { advertId } = useParams();
   const advert = useSelector(getAd(advertId));
 
-  const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [confirmToDelete, setConfirmToDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   //const [advert, setAdvert] = useState(null);
 
-  const resetError = () => {
-    setError(null);
-    navigate("/v1/adverts");
-    const to = location.state?.fvrom || "/";
-    navigate(to, { replace: true });
+  const goBack = () => {
+    dispatch(navigateBack());
   };
-
-  // useEffect(() => {
-  //   async function fetchAdvert() {
-  //     try {
-  //       const fetchedAdvert = await getUniqueAdvert(params.advertId);
-  //       setAdvert(fetchedAdvert);
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //   }
-  //   fetchAdvert();
-  // }, [params.advertId]);
 
   const handleDeleteConfirm = async () => {
     try {
@@ -74,7 +57,7 @@ export function AdvertPage() {
         </>
       )}
       {error && <div className="Advert-delete-error">{`${error}`}</div>}
-      <Button onClick={resetError}>Click here to go back</Button>
+      <Button onClick={goBack}>Click here to go back</Button>
       {confirmToDelete && (
         <div className="Advert-confirm-to-delete">
           <p>Do you confirm to delete this ad?</p>

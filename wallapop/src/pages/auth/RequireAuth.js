@@ -4,7 +4,6 @@ import { getIsLogged } from "../../store/selectors";
 
 function RequireAuth({ children }) {
   const location = useLocation();
-  //const { isLogged } = useAuth();
   const isLogged = useSelector(getIsLogged);
 
   return isLogged ? (

@@ -1,22 +1,19 @@
 import Layout from "../../components/Layout";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
 import { Button } from "../../components/Button";
-function PageNotFound() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [setError] = useState(null);
+import { useDispatch } from "react-redux";
+import { navigateBack } from "../../store/actions";
 
-  const resetError = () => {
-    setError(null);
-    const to = location.state?.from || "/";
-    navigate(to, { replace: true });
+function PageNotFound() {
+  const dispatch = useDispatch();
+
+  const goBack = () => {
+    dispatch(navigateBack());
   };
 
   return (
     <Layout>
       <div>Error 404: This page does not exist any more</div>
-      <Button onClick={resetError}> Go back</Button>
+      <Button onClick={goBack}> Go back</Button>
     </Layout>
   );
 }
